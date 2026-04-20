@@ -1,5 +1,29 @@
 const container = document.querySelector('.container');
 const propertySections = document.querySelectorAll('.properties');
+const toast = document.getElementById('toast');
+let toastTimeout;
+
+function showToast(message) {
+	if (!toast) return;
+
+	toast.textContent = message;
+	toast.classList.add('show');
+
+	clearTimeout(toastTimeout);
+	toastTimeout = setTimeout(() => {
+		toast.classList.remove('show');
+	}, 1800);
+}
+
+function copyToClipboard(text, successMessage) {
+	navigator.clipboard
+		.writeText(text)
+		.then(() => showToast(successMessage))
+		.catch(() => showToast('Could not copy'));      
+
+	const targetId = selectedRadio.dataset.itemTarget;
+	return document.getElementById(targetId);
+}
 
 function getSelectedItem() {
 	const selectedRadio = document.querySelector('input[name="selected-item"]:checked');
@@ -58,21 +82,28 @@ function changeRangeValueDisplay(range) {
 
 function resetAllProperties() {
     container.removeAttribute('style');
+
     const items = container.querySelectorAll('.item');
     items.forEach(item => item.removeAttribute('style'));
+
+    const anchors = document.querySelectorAll('.options a');
+    anchors.forEach(anchor => anchor.classList.remove('active'));
+    
 	setPropertiesToCode();
+    showToast('Properties reset');
 }
 
 function copyItemProperties(item) {
     const selectedItem = document.getElementById(`item-${item}`);
+	if (!selectedItem) return;
 
     const formatedProperties = getProperties(selectedItem, ['flex-grow','align-self']);
-    navigator.clipboard.writeText(formatedProperties);
+	copyToClipboard(formatedProperties, `Item ${item} copied`);
 }
 
 function copyContainerProperties() {
     const formatedProperties = getProperties(container, ['flex-direction', 'justify-content', 'align-items', 'gap']);
-    navigator.clipboard.writeText(formatedProperties);
+	copyToClipboard(formatedProperties, 'Container copied');
 }
 
 function getProperties(element, propertiesToCopy) {

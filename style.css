@@ -175,6 +175,25 @@ svg {
     font-size: calc(var(--size) / 4);
 }
 
+.toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 999;
+    backdrop-filter: blur(4px) saturate(200%);
+    border-radius: 10px;
+    box-shadow: var(--border-shadow);
+    padding: 0.7rem 0.9rem;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 @media (min-width: 1024px) {
     body {
         padding: 2rem 4rem;
