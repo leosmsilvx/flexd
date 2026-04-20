@@ -1,231 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="imgs/icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://leosmsilvx.github.io/assets/pfp.webp">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,200,0,200" />
-    <title>Flex Boxes</title>
+    <title>Flexd</title>
 </head>
 <body>
-    <div id="copy-text">
-        Style copied to clipboard.
+    <header>
+        <img src="https://leosmsilvx.github.io/assets/pfp.webp" alt="Leonardo Moura" height="56px" width="56px">
+        <div>
+            <h1>Flexd</h1>
+            <p>CSS visualizer</p>
+        </div>
+    </header>
+    <div class="playground">
+        <div class="panel">
+            <h1>Flex container</h1>
+            <div class="container">
+                <div class="item" id="item-1">
+                    1
+                </div>
+                <div class="item" id="item-2">
+                    2
+                </div>
+                <div class="item" id="item-3">
+                    3
+                </div>
+            </div>
+        </div>
+        <aside class="panel">
+            <h1>Style properties</h1>
+            <div class="properties">
+                <h2>Container</h2>
+                <div class="options">
+                    <p>flex-direction:</p>
+                    <a>row</a>
+                    <a>row-reverse</a>
+                    <a>column</a>
+                    <a>column-reverse</a>
+                </div>
+                <div class="options">
+                    <p>justify-content:</p>
+                    <a>flex-start</a>
+                    <a>flex-end</a>
+                    <a>center</a>
+                    <a>space-between</a>
+                    <a>space-around</a>
+                    <a>space-evenly</a>
+                </div>
+                <div class="options">
+                    <p>align-items:</p>
+                    <a>flex-start</a>
+                    <a>flex-end</a>
+                    <a>center</a>
+                    <a>stretch</a>
+                </div>
+                <div class="options">
+                    <p>gap (px):</p>
+                    <input type="range" name="gap" id="gap" min="0" max="300" value="20">
+                    <div class="range-value" id="gap-value">20px</div>
+                </div>
+            </div>
+            <div class="properties">
+                <h2>Items</h2>
+                <div class="select-item">
+                    <label for="select-item-1">1</label>
+                    <input type="radio" name="selected-item" id="select-item-1" data-item-target="item-1" checked>
+                    
+                    <label for="select-item-2">2</label>
+                    <input type="radio" name="selected-item" id="select-item-2" data-item-target="item-2">
+                    
+                    <label for="select-item-3">3</label>
+                    <input type="radio" name="selected-item" id="select-item-3" data-item-target="item-3">
+                </div>
+                <div class="options">
+                    <p>align-self:</p>
+                    <a>flex-start</a>
+                    <a>flex-end</a>
+                    <a>center</a>
+                </div>
+                <div class="options">
+                    <p>flex-grow:</p>
+                    <input type="range" name="flex-grow" id="flex-grow" min="0" max="3" value="0">
+                    <div class="range-value" id="flex-grow-value">0</div>
+                </div>
+            </div>
+            <button id="reset" onclick="resetAllProperties()">Reset all</button>
+        </aside>
     </div>
-    <div class="main">  
-        <div class="main-title">
-            Flex Boxes
+    <div class="code">
+        <h2>Container</h2>
+        <div>
+            <code id="container-code"></code>
+            <button id="copy-container" onclick="copyContainerProperties()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448L480 448C515.3 448 544 419.3 544 384L544 183.4C544 166 536.9 149.3 524.3 137.2L466.6 81.8C454.7 70.4 438.8 64 422.3 64L288 64zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L352 496L352 512L160 512L160 256L176 256L176 192L160 192z"/></svg>
+            </button>
         </div>
-        <div class="subtitle-main-title">
-            <span>made by</span> <a class="button-click" href="https://leosmsilvx.github.io/" target="_blank">leosmsilvx</a>
+
+        <h2>Item 1</h2>
+        <div>
+            <code id="item-1-code"></code>
+            <button id="copy-item" onclick="copyItemProperties(1)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448L480 448C515.3 448 544 419.3 544 384L544 183.4C544 166 536.9 149.3 524.3 137.2L466.6 81.8C454.7 70.4 438.8 64 422.3 64L288 64zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L352 496L352 512L160 512L160 256L176 256L176 192L160 192z"/></svg>
+            </button>
         </div>
-        <span class="smlTxt">
-            (click on the class property to see changes)
-        </span>
-        <div class="main-container">
-            <div class="container-border">
-                <div class="container-title">
-                    <div class="container-main-title">
-                        Main container
-                    </div>
-                    <div class="reset-title">
-                        <a class="button-click" onclick="reset()">Reset</a>
-                    </div>
-                </div>
-                <div class="container" id="container-1">
-                    <div class="item" id="item-1">
-                        Item 1
-                    </div>
-                    <div class="item" id="item-2">
-                        Item 2
-                    </div>
-                    <div class="item" id="item-3">
-                        Item 3
-                    </div>
-                </div> 
-                <div class="container-text">
-                    <input class="input-text-style" type="text" id="style-text" value="display: flex; flex-direction: row; justify-content: start; align-items: flex-start; gap: 5px;" disabled></input>
-                    <button class="button-copy" onclick="copy()"><span class="material-symbols-outlined">content_copy</span></button>
-                </div>
-            </div>
-            <div class="buttons">
-                <div class="button-title">
-                    Main Container
-                </div>
-                <div class="button-subtitle">
-                    flex-direction
-                </div>
-                <div class="button-options">                    
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'flex-direction', 'row')">row</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'flex-direction', 'column')">column</a>
-                    </div>
-                </div>
-                
-                <div class="button-subtitle">
-                    justify-content
-                </div>
-                <div class="button-options">                    
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'justify-content', 'start')">start</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'justify-content', 'center')">center</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'justify-content', 'end')">end</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'justify-content', 'space-between')">space-between</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'justify-content', 'space-around')">space-around</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'justify-content', 'space-evenly')">space-evenly</a>
-                    </div>
-                </div>
 
-                <div class="button-subtitle">
-                    align-items
-                </div>
-                <div class="button-options">                    
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'align-items', 'flex-start')">flex-start</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'align-items', 'center')">center</a>
-                    </div>
-                    <div class="button-option">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('container-1', 'align-items', 'flex-end')">flex-end</a>
-                    </div>
-                </div>
+        <h2>Item 2</h2>
+        <div>
+            <code id="item-2-code"></code>
+            <button id="copy-item" onclick="copyItemProperties(2)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448L480 448C515.3 448 544 419.3 544 384L544 183.4C544 166 536.9 149.3 524.3 137.2L466.6 81.8C454.7 70.4 438.8 64 422.3 64L288 64zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L352 496L352 512L160 512L160 256L176 256L176 192L160 192z"/></svg>
+            </button>
+        </div>
 
-                <div class="button-subtitle">
-                    gap
-                </div>
-                <div class="button-options">                    
-                    	<input class="input-option" id="gap" type="range" min="0" max="150" step="1" value="5" onchange="rangeStyle('container-1', 'gap', 'gapValue', 'gap')">
-                        <div>
-                            <a class="input-range-value" id="gapValue">5px</a>
-                        </div>                        
-                </div>
-            </div>
-            <div class="buttons">
-                <div class="button-title">
-                    Items
-                </div>
-                <div class="button-subtitle">
-                    Item 1
-                </div>
-                <div class="button-options">
-                    <div class="button-option-subtitle">
-                        align-self
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-1', 'align-self', 'flex-start')">flex-start</a>
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-1', 'align-self', 'center')">center</a>
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-1', 'align-self', 'flex-end')">flex-end</a>
-                    </div>
-
-                    <div class="button-option-subtitle">
-                        flex-grow
-                    </div>
-                    <div class="button-option button-item">
-                        <input class="input-option" id="grow-1" type="range" min="0" max="3" step="1" value="0" onchange="rangeStyle('item-1','grow-1', 'grow-1-value', 'flex-grow')">
-                        <div>
-                            <a class="input-range-value" id="grow-1-value">0</a>
-                        </div>  
-                    </div>
-                </div>
-                <div class="button-subtitle">
-                    Item 2
-                </div>
-                <div class="button-options">
-                    <div class="button-option-subtitle">
-                        align-self
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-2', 'align-self', 'flex-start')">flex-start</a>
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-2', 'align-self', 'center')">center</a>
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-2', 'align-self', 'flex-end')">flex-end</a>
-                    </div>
-
-                    <div class="button-option-subtitle">
-                        flex-grow
-                    </div>
-                    <div class="button-option button-item">
-                        <input class="input-option" id="grow-2" type="range" min="0" max="3" step="1" value="0" onchange="rangeStyle('item-2','grow-2', 'grow-2-value', 'flex-grow')">
-                        <div>
-                            <a class="input-range-value" id="grow-2-value">0</a>
-                        </div>  
-                    </div>
-                </div>
-                <div class="button-subtitle">
-                    Item 3
-                </div>
-                <div class="button-options">
-                    <div class="button-option-subtitle">
-                        align-self
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-3', 'align-self', 'flex-start')">flex-start</a>
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-3', 'align-self', 'center')">center</a>
-                    </div>
-                    <div class="button-option button-item">
-                        <span>-</span>
-                        <a class="button-click" onclick="clickStyle('item-3', 'align-self', 'flex-end')">flex-end</a>
-                    </div>
-
-                    <div class="button-option-subtitle">
-                        flex-grow
-                    </div>
-                    <div class="button-option button-item">
-                        <input class="input-option" id="grow-3" type="range" min="0" max="3" step="1" value="0" onchange="rangeStyle('item-3','grow-3', 'grow-3-value', 'flex-grow')">
-                        <div>
-                            <a class="input-range-value" id="grow-3-value">0</a>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-        </div>  
-        
-        <div class="hrow"></div>
-        <div class="footer">
-            <a class="all-rights-txt">© 2022 leosmsilvx</a>
-        </div>      
-    </div> 
-    
+        <h2>Item 3</h2>
+        <div>
+            <code id="item-3-code"></code>
+            <button id="copy-item" onclick="copyItemProperties(3)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448L480 448C515.3 448 544 419.3 544 384L544 183.4C544 166 536.9 149.3 524.3 137.2L466.6 81.8C454.7 70.4 438.8 64 422.3 64L288 64zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L352 496L352 512L160 512L160 256L176 256L176 192L160 192z"/></svg>
+            </button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

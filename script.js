@@ -1,100 +1,147 @@
+const container = document.querySelector('.container');
+const propertySections = document.querySelectorAll('.properties');
 
-function clickStyle(classe, property, value){
-    if(property == "flex-direction")
-        document.getElementById(classe).style.flexDirection = value;
+function getSelectedItem() {
+	const selectedRadio = document.querySelector('input[name="selected-item"]:checked');
+	if (!selectedRadio) return null;
 
-    if(property == "justify-content")
-        document.getElementById(classe).style.justifyContent = value;
-
-    if(property == "align-items")
-        document.getElementById(classe).style.alignItems = value;
-
-    if(property == "align-self")
-        document.getElementById(classe).style.alignSelf = value;
-
-    changeTxtStyle();
+	const targetId = selectedRadio.dataset.itemTarget;
+	return document.getElementById(targetId);
 }
 
-function rangeStyle(classe, range, rangeValue, property){
-    var element = document.getElementById(classe);
-    var range = document.getElementById(range);
-    var rangeValue = document.getElementById(rangeValue);   
+function getPropertyName(optionsBlock) {
+	const label = optionsBlock.querySelector('p');
+	if (!label) return null;
 
-    if(property == "gap"){
-        var value = range.value + "px";
-        element.style.gap = value;
-        rangeValue.text = value;
-    }
-
-    if(property == "flex-grow"){
-        element.style.flexGrow = range.value;
-        rangeValue.text = range.value;
-    }
-
-    changeTxtStyle();
+    // Get only the property name from the label, removin)g any extra text like ":" or "(px)"
+	return label.textContent.replace(':', '').replace('(px)', '').trim();
 }
 
-function changeTxtStyle(){
-    var txtStyle = document.getElementById("style-text");
-    var mainElement = document.getElementById("container-1");
+function formatValue(propertyName, rawValue) {
+	if (propertyName === 'gap') {
+		return `${rawValue}px`;
+	}
 
-    let style = window.getComputedStyle(mainElement);
-
-    var flexDirection = style.getPropertyValue("flex-direction");
-    var justifyContent = style.getPropertyValue("justify-content");
-    var alignItems = style.getPropertyValue("align-items");
-    var gap = style.getPropertyValue("gap");
-    var text = "display: flex; " +
-               "flex-direction: " + flexDirection + "; " +
-               "justify-content: " + justifyContent + "; " +
-               "align-items: " + alignItems + "; " +
-               "gap: " + gap + ";"
-
-    txtStyle.value = text;
+	return rawValue;
 }
 
-function reset(){
-    var mainElement = document.getElementById("container-1");
-    var item1 = document.getElementById("item-1");
-    var item2 = document.getElementById("item-2");
-    var item3 = document.getElementById("item-3");
-
-    //Reset attributes
-    mainElement.attributeStyleMap.clear();
-    item1.attributeStyleMap.clear();
-    item2.attributeStyleMap.clear();
-    item3.attributeStyleMap.clear();
-
-    //Set the "default" gap
-    mainElement.style.gap = "5px";
-
-    //Fix inputs
-    document.getElementById("gap").value = 5;
-    document.getElementById("grow-1").value = 0;
-    document.getElementById("grow-2").value = 0;
-    document.getElementById("grow-3").value = 0;
-        
-    document.getElementById("gapValue").text = "5px";
-    document.getElementById("grow-1-value").text = 0;    
-    document.getElementById("grow-2-value").text = 0;    
-    document.getElementById("grow-3-value").text = 0;
-
-    changeTxtStyle();
+function applyProperties(propertyName, value) {
+    applyContainerProperties(propertyName, value);
+    applyItemProperties(propertyName, value);
 }
 
-function copy(){   
-    var copyPop = document.getElementById("copy-text");
-    copyPop.style.opacity = .95;
-    var campo = document.getElementById("style-text");
-
-    campo.select();
-    campo.setSelectionRange(0, 99999); // Mobile
-
-    var formatedText = campo.value;
-    formatedText = formatedText.replaceAll("; ", ";\n"); 
-
-    navigator.clipboard.writeText(formatedText);
-    setTimeout(() => {
-        copyPop.style.opacity = 0;
-    }, 2000);
+function applyContainerProperties(propertyName, value){ 
+    container.style.setProperty(propertyName, value);
 }
+
+function applyItemProperties(propertyName, value) {
+    const selectedItem = getSelectedItem();
+	if (!selectedItem) return;
+
+    selectedItem.style.setProperty(propertyName, value);
+}
+
+function setActiveOption(optionsBlock, activeAnchor) {
+	const anchors = optionsBlock.querySelectorAll('a');
+
+	anchors.forEach((anchor) => {
+		anchor.classList.toggle('active', anchor === activeAnchor);
+	});
+}
+
+function changeRangeValueDisplay(range) {
+    if (!range) return;
+
+    const valueDisplay = range.nextElementSibling;
+    valueDisplay.textContent = range.name === 'gap' ? `${range.value}px` : range.value;
+}
+
+function resetAllProperties() {
+    container.removeAttribute('style');
+    const items = container.querySelectorAll('.item');
+    items.forEach(item => item.removeAttribute('style'));
+	setPropertiesToCode();
+}
+
+function copyItemProperties(item) {
+    const selectedItem = document.getElementById(`item-${item}`);
+
+    const formatedProperties = getProperties(selectedItem, ['flex-grow','align-self']);
+    navigator.clipboard.writeText(formatedProperties);
+}
+
+function copyContainerProperties() {
+    const formatedProperties = getProperties(container, ['flex-direction', 'justify-content', 'align-items', 'gap']);
+    navigator.clipboard.writeText(formatedProperties);
+}
+
+function getProperties(element, propertiesToCopy) {
+    const styles = window.getComputedStyle(element);
+    const formatedProperties = propertiesToCopy.map(prop => `${prop}: ${styles.getPropertyValue(prop)}`).join(';\n');
+
+    return formatedProperties;
+}
+
+function setPropertiesToCode() {
+    setContainerPropertiesToCode();
+    setItemPropertiesToCode();
+}
+
+function setContainerPropertiesToCode() {
+    const containerCode = document.getElementById('container-code');
+	if (containerCode) {
+		const formatedContainerProperties = getProperties(container, ['display','flex-direction', 'justify-content', 'align-items', 'gap']);
+		containerCode.textContent = `.container {\n${formatedContainerProperties};\n}`;
+	}
+}
+
+function setItemPropertiesToCode() {
+    const items = container.querySelectorAll('.item');
+	items.forEach((item) => {
+		const codeContainer = document.getElementById(`${item.id}-code`);
+		if (!codeContainer) return;
+
+		const formatedItemProperties = getProperties(item, ['flex-grow', 'align-self']);
+		codeContainer.textContent = `#${item.id} {\n${formatedItemProperties};\n}`;
+	});
+}
+
+propertySections.forEach((section) => {
+	const optionBlocks = section.querySelectorAll('.options');
+
+	optionBlocks.forEach((optionsBlock) => {
+		const propertyName = getPropertyName(optionsBlock);
+		const anchors = optionsBlock.querySelectorAll('a');
+		const ranges = optionsBlock.querySelectorAll('input[type="range"]');
+
+		anchors.forEach((anchor) => {
+			anchor.addEventListener('click', () => {
+				const value = anchor.textContent.trim();
+				applyProperties(propertyName, value);
+				setActiveOption(optionsBlock, anchor);
+                setPropertiesToCode();
+			});
+		});
+
+		ranges.forEach((range) => {
+			const rangePropertyName = propertyName || range.name || range.id;
+
+			range.addEventListener('input', () => {
+				const value = formatValue(rangePropertyName, range.value);
+				applyProperties(rangePropertyName, value);
+				changeRangeValueDisplay(range);
+                setPropertiesToCode();
+			});
+
+			const initialValue = formatValue(rangePropertyName, range.value);
+			applyProperties(rangePropertyName, initialValue);
+			changeRangeValueDisplay(range);
+		});
+	});
+});
+
+document.querySelectorAll('input[name="selected-item"]').forEach((radio) => {
+    radio.addEventListener('change', setPropertiesToCode);
+});
+
+setPropertiesToCode();

@@ -1,320 +1,193 @@
-/*Frufruzinho css*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 html{
-    scroll-behavior:smooth
+    scroll-behavior: smooth;
 }
 
 :root{
-    --active-color: #5f00db;
-    --background-color: #1a1a1a;
-    --item-color: #5a00c0;
-    --b-item-color: #340070;
+    --background-color: #101010;
+    --background-hover-color: #1F1F1F;
+    --text-color: #EEEEEE;
+    --sub-text-color: #B5B5B5;
+    --underline-color: #3A3A3A;
+
+    --border-shadow: 0 0 0 1px #ffffff14,0 1px 2px -1px #ffffff14,0 1px 2px #ffffff0f;
 }
 
 body{
     margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    word-spacing: 1.4px;
-    font-family: sans-serif;
-    background-color: #0f0f0f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.main{
-    width: 100%;
+    padding: 1rem 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'DM Sans', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5%;
+    gap: 1rem;
 }
 
-.container-border{
-    width: 70%;
-    border-radius: 10px;
+h1 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+h2 {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+p {
+    font-size: 1rem;
+    color: var(--sub-text-color);
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-top: 3rem;
+}
+
+button {
     background-color: transparent;
-    background-size: 500% 100%;
-    padding: 5px;
-    margin-top: 5%;
+    color: var(--text-color);
+    border: none;
+    box-shadow: var(--border-shadow);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 1rem;
 }
 
-.main-container{
-    display: flex;
+button:hover {
+    background-color: var(--background-hover-color);
+}
+
+svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: var(--text-color);
+}
+
+.playground {
     width: 100%;
-}
-
-.subtitle-main-title{
-    color: white;
-}
-
-.buttons{
-    width: 15%;
     display: flex;
     flex-direction: column;
-    margin-top: 5%;
-    color: white;
-    border-right: solid 1px var(--active-color);
-
+    gap: 1rem;
 }
 
-.button-title{
-    padding-left: 5%;
-    font-size: 30px;
-    font-weight: 800;
+.panel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.button-subtitle{
-    padding-left: 10%;
-    margin-top: 30px;
-    font-size: 20px;
-    font-weight: 700;
+.properties {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
-.button-options{
-    margin-left: 15%;
+.options {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    row-gap: .35rem;
 }
 
-.button-item{
-    margin-left: 10%;
-}
-
-.button-click{
+.options a {
     cursor: pointer;
     text-decoration: underline;
-    text-decoration-color: var(--active-color);
-    color: white;
+    text-decoration-color: var(--underline-color);
+    white-space: nowrap;
 }
 
-.button-click:hover{
-    color: var(--active-color);
+.options a:hover {
+    text-decoration-color: var(--text-color);
 }
 
-.button-option-subtitle{
-    font-weight: 600;
+.options a.active {
+    text-decoration-color: var(--text-color);
+    font-weight: bold;
 }
 
-.container{
-    padding: 1%;
-    margin: 1%;
-    height: 800px; 
-    background-color: var(--second-color);
-    box-shadow: 0px 0px 20px black;
-    border-radius: 8px;
-}
-
-.item{
-    width: 100px;
-    height: 100px;
-    background-color: var(--item-color);
-    padding: 1em;
-    font-weight: 800;
-    color: #eee;
-    text-align: center;
-    border: solid 6px var(--b-item-color);
-}
-
-.item:hover{
-    background-color: #6202cf;
-    color: white;
-    cursor: pointer;
-}
-
-.container-title{
+.buttons {
+    width: 30%;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding-right: 10px;
-    padding-left: 10px;
-    color: white;
 }
 
-.main-title{
-    font-size: 50px;
-    font-weight: 800;
-    color: white;
-}
-
-.main-title:hover{
-    color: var(--active-color);
-}
-
-.container-text{
-    padding-top: 3px;
-    display: flex;
-    justify-content: center;
-    text-shadow: #eee;
-    font-size: 14px;
-    font-weight: 400;
-    color: white;
-    height: 40px;
-    margin: 1%;
-    border-radius: 8px;
-    background-color: #1e1e1e;
-}
-
-.container-main-title{
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.hrow{
-    padding-top: 4%;
+.code {
     width: 100%;
-    border-bottom: solid  1px grey;
-}
-
-.footer{
-    padding-top: 10px;
-}
-.all-rights-txt{
-    font-size: 13px;
-    font-family: sans-serif;
-    text-align: center;
-    color: grey;
-}
-
-.smlTxt{
-    color: grey;
-    font-size: 11px;
-}
-
-.input-option{
-    width: 80%;
-    accent-color: var(--active-color);
-}
-
-.button-copy{
-    background-color: transparent;
-    border: 0;
-    border-radius: 25%;
-    width: 35px;
-    height: 35px;
-    color: white;
-    vertical-align:middle;
-}
-
-.button-copy:hover{
-    cursor: pointer;
-    transition: all .3s;
-    background-color: #2f2f2f;
-}
-
-.input-text-style{
-    width: 45%;
-    margin-top: 5px;
-    margin-right: 5px;
-    height: 25px;
-    background-color: #2f2f2f;
-    border: 0;
-    color: white;
-    
-}
-
-#copy-text{
-    position: fixed;
-    bottom: 50px;
-    color: white;
-    background-color:#2a2a2a;
-    opacity: 0;
-    padding: 20px;
-    border-radius: 30px;
-    transition: opacity 1s;
-}
-
-/*Main css*/
-
-#container-1{    
     display: flex;
-    flex-direction: row;
-    /*
-    seta o eixo principal
-    default: row; alinhamento horizontal
-    column; alinhamento vertical
-    */ 
-    justify-content: start;
-    /*
-    Alinha os itens no eixo principal
-    default: start; começo
-    center; centro
-    end; fim
-
-    space-between: cria espaços proporcionais ao tamanho da div, sem espaços nas pontas
-    space-around; cria espaços, com espaço nas pontas, não proporcional
-    space-evenly: cria espaços, com espaço nas pontas, proporcional
-    */ 
-    align-items: flex-start;
-    /*
-    Alinha os itens no eixo que cruza o eixo secundario
-    default: flex-start; começo
-    center; centro
-    flex-end; fim
-
-    baseline: alinha os itens fazendo com que eles estejam alinhados pelo texto
-    aumente o tamanho de um dos textos para ver
-    */
-    flex-wrap: nowrap;
-    /*
-    Coloque mais itens para ver o efeito
-    default: nowrap;
-    wrap: separa os itens quando possivel, descendo eles na div
-    */
-    /*align-content: flex-start;*/
-    /*
-    Só funciona quando o flex-wrap for wrap e tiver itens suficiente
-    Funciona como o justify-content mas para os itens que estão fazendo "wraping"
-    */
-    gap: 5px;
-    /*
-    Seta espaço entre os itens
-    default: 0;
-    */
+    flex-direction: column;
+    gap: .5rem;
 }
 
-#item-3{
-    /*flex-grow: 0;*/
-    /*
-    default: 0;
-    Faz com que o item cresça quando tiver espaço para crescer
-    Mude o nome da classe para ver
-    */
+.code div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
 
-    /*flex-shrink: 0;*/
-    /*
-    default: no value;
-    Maiores valores faz com que o item fique menor primeiro quando responsivo
-    */
+.code button {
+    display: none;
+    height: 2.5rem;
+    width: 2.5rem;
+    padding: 0;
+}
 
-    /*flex-basis: 150px;*/
-    /*
-    default: no value;
-    seta o width do item
-    */
+.code code {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--background-hover-color);
+    color: var(--text-color);
+    box-shadow: var(--border-shadow);
+    border-radius: 10px;
+}
 
-    /*
-    Flex é um "atalho" para os 3 parametros
-    1º parameter: flex-grow
-    2º parameter: flex-shrink
-    3º parameter: flex-basis
-    nao use "," para separar os parametros
-    */
-    /*flex: 1 5;*/
+.container {
+    width: 100%;
+    height: 600px;
 
-    /*align-self: center;*/
-    /*
-    default: align-self: flex-start;
-    functiona como o align-items porém para o item em específico
-    */
+    box-shadow: var(--border-shadow);
+    border-radius: 10px;
 
-    /*order: -1;*/
-    /*
-    default: 0;
-    para 3 itens: 
-    -1 primeiro
-    0 segundo
-    1 terceiro
-    seta a posição do item para aparecer em ordem de prioridade
-    e nao na ordem do html
-    nao é recomendado utilizar isso, é mais facil mudar o html
-    */
+    display: flex;
+    gap: 20px;
+}
+
+.item {
+    --size: 80px;
+    width: var(--size);
+    height: var(--size);
+    text-align: center;
+    line-height: var(--size);
+
+    box-shadow: var(--border-shadow);
+    border-radius: 10px;
+    font-size: calc(var(--size) / 4);
+}
+
+@media (min-width: 1024px) {
+    body {
+        padding: 2rem 4rem;
+    }
+
+    .playground {
+        display: grid;
+        grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
+        align-items: start;
+        gap: 1.5rem;
+    }
+
+    .code button {
+        display: block;
+    }
 }
